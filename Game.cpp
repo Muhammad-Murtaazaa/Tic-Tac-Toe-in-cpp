@@ -97,7 +97,6 @@ bool timedMove(int &slot) {
     return true;
 }
 
-// Function for AI move
 void aiMove() {
     srand(time(0));  
     int slot;
