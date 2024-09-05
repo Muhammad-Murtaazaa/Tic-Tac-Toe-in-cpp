@@ -1,0 +1,8 @@
+Player 1 (Name: murtaza) | Player 2 (Name: AI)
+Final Scores: Player 1: 0 | AI: 1
+Result: AI Wins!
+-----------------------------------
+Player 1 (Name: murtaza) | Player 2 (Name: AI)
+Final Scores: Player 1: 1 | AI: 1
+Result: Player 1 Wins!
+-----------------------------------
