@@ -22,7 +22,7 @@ void drawBoard() {
             cout << board[i][j] << " ";
         }
         cout << endl;
-    }
+    } 
     cout << endl;
 }
 
