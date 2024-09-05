@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <ctime>   // for time()
 #include <cstdlib> // for rand() and srand()
@@ -10,6 +11,10 @@ int current_player, player_score = 0, ai_score = 0;
 const int time_limit = 15;  // set the time limit for each move in seconds 
 string player1_name, player2_name = "AI";
 
+// Function to display the main menu
+void showMainMenu();
+
+// Function to draw the current state of the board
 void drawBoard() {
     cout << "Tic-Tac-Toe Board:\n\n";
     for (int i = 0; i < 3; i++) {
@@ -21,7 +26,7 @@ void drawBoard() {
     cout << endl;
 }
 
-
+// Function to place marker on the board
 bool placeMarker(int slot) {
     int row = (slot - 1) / 3;
     int col = (slot - 1) % 3;
@@ -37,7 +42,7 @@ bool placeMarker(int slot) {
     return true;
 }
 
-//checks all the winner patterns to define the winner
+// Function to check for the winner
 int winner() {
     // Check all the rows
     for (int i = 0; i < 3; i++) {
@@ -61,6 +66,7 @@ int winner() {
     return 0;
 }
 
+// Function to swap player and marker
 void swapPlayerAndMarker() {
     if (current_marker == 'X') {
         current_marker = 'O';
@@ -75,6 +81,7 @@ void swapPlayerAndMarker() {
     }
 }
 
+// Function for timed moves
 bool timedMove(int &slot) {
     time_t start_time = time(NULL);
     
@@ -90,6 +97,7 @@ bool timedMove(int &slot) {
     return true;
 }
 
+// Function for AI move
 void aiMove() {
     srand(time(0));  
     int slot;
@@ -127,8 +135,11 @@ void showHistory() {
     } else {
         cout << "No game history available.\n";
     }
+    cout << "\nReturning to Home...\n";
+    showMainMenu();
 }
 
+// Update score after game
 void updateScore(int winner) {
     string result;
     if (winner == 1) {
@@ -145,6 +156,7 @@ void updateScore(int winner) {
     saveToFile(result); // Save the game result to file
 }
 
+// Reset the board after each round
 void resetBoard() {
     char init_board[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
     for (int i = 0; i < 3; i++)
@@ -152,6 +164,19 @@ void resetBoard() {
             board[i][j] = init_board[i][j];
 }
 
+// Function to display the About section
+void showAbout() {
+    cout << "\n--- About the Developer ---\n";
+    cout << "Developer: Muhammad Murtaza\n";
+    cout << "Email: muhammad.murtaazaa@gmail.com\n";
+    cout << "I am a Computer Science student with a love and passion for coding. "
+         << "If you're interested in collaborating on a project or building a custom solution, "
+         << "feel free to contact me at the above email.\n";
+    cout << "\nReturning to Home...\n";
+    showMainMenu();
+}
+
+// Main game logic
 void game(bool isSinglePlayer) {
     cout << "Player 1, choose your marker (X or O): ";
     char marker_p1;
@@ -207,36 +232,51 @@ void game(bool isSinglePlayer) {
     resetBoard();
 }
 
-int main() {
+// Main Menu
+void showMainMenu() {
     cout << "Welcome to Tic-Tac-Toe!\n";
+    cout << "Developed by: Muhammad Murtaza\n";
+    cout << "Choose an option:\n";
+    cout << "1. Single Player (vs AI)\n";
+    cout << "2. Two Player\n";
+    cout << "3. View Game History\n";
+    cout << "4. About\n";
+    cout << "5. Exit\n";
     
-    cout << "Enter Player 1 name: ";
-    cin >> player1_name;
-
-    cout << "Choose game mode:\n1. Single Player (vs AI)\n2. Two Player\n3. View Game History\n";
     int choice;
     cin >> choice;
 
     if (choice == 3) {
         showHistory();  // Show game history
-        return 0;       // Exit after showing history
+    } else if (choice == 4) {
+        showAbout();    // Show About section
+    } else if (choice == 5) {
+        cout << "Exiting the game. Goodbye!\n";
+        exit(0);
+    } else {
+        bool isSinglePlayer = (choice == 1);
+
+        if (!isSinglePlayer) {
+            cout << "Enter Player 2 name: ";
+                        cin >> player2_name;
+        }
+
+        char play_again;
+        do {
+            game(isSinglePlayer);
+            cout << "Do you want to play again? (y/n): ";
+            cin >> play_again;
+        } while (play_again == 'y');
+        
+        cout << "Final Scores - Player 1: " << player_score << " | AI: " << ai_score << endl;
+        cout << "Thanks for playing!\n";
+        showMainMenu();  // Return to main menu
     }
+}
 
-    bool isSinglePlayer = (choice == 1);
-
-    if (!isSinglePlayer) {
-        cout << "Enter Player 2 name: ";
-        cin >> player2_name;
-    }
-
-    char play_again;
-    do {
-        game(isSinglePlayer);
-        cout << "Do you want to play again? (y/n): ";
-        cin >> play_again;
-    } while (play_again == 'y');
-
-    cout << "Final Scores - Player 1: " << player_score << " | AI: " << ai_score << endl;
-    cout << "Thanks for playing!\n";
+int main() {
+    showMainMenu();  // Display the main menu
     return 0;
 }
+
+           
