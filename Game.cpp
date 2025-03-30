@@ -68,21 +68,25 @@ int winner() {
 
 // Function to swap player and marker
 void swapPlayerAndMarker() {
-    if (current_marker == 'X') {
+    if (current_marker == 'X') 
+    {
         current_marker = 'O';
     } else {
         current_marker = 'X';
     }
 
-    if (current_player == 1) {
+    if (current_player == 1) 
+    {
         current_player = 2;
-    } else {
+    } else 
+    {
         current_player = 1;
     }
 }
 
 // Function for timed moves
-bool timedMove(int &slot) {
+bool timedMove(int &slot) 
+{
     time_t start_time = time(NULL);
     
     cout << "You have " << time_limit << " seconds to make a move: ";
@@ -90,14 +94,16 @@ bool timedMove(int &slot) {
     
     time_t end_time = time(NULL);
     
-    if (difftime(end_time, start_time) > time_limit) {
+    if (difftime(end_time, start_time) > time_limit) 
+    {
         cout << "Time's up! You took too long.\n";
         return false;
     }
     return true;
 }
 
-void aiMove() {
+void aiMove() 
+{
     srand(time(0));  
     int slot;
     while (true) {
